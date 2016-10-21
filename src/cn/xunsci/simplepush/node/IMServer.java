@@ -65,7 +65,7 @@ public class IMServer {
 	//初始化控制台
 	public void initConsole() throws Exception{
 		console = new IMServerConsole();
-		cmdThread = new Thread("IMServer-console");
+		cmdThread = new Thread(console,"IMServer-console");
 		cmdThread.setDaemon(true);
 		cmdThread.start();
 	}
