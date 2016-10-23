@@ -170,8 +170,9 @@ public class Pusher {
 			//用户名user
 			//result = pusher.push0x20Message(StringUtil.hexStringToByteArray("ee11cbb19052e40b07aac0ca060c23ee"), "cmd=ntfurl|title=通知标题|content=通知内容|tt=提示标题|url=/m/admin/eml/inbox/list".getBytes("UTF-8"));
 			//result = pusher.push0x10Message(StringUtil.hexStringToByteArray("ee11cbb19052e40b07aac0ca060c23ee"));
-			result = pusher.push0x11Message(StringUtil.hexStringToByteArray("ee11cbb19052e40b07aac0ca060c23ee"),128);
+			//result = pusher.push0x11Message(StringUtil.hexStringToByteArray("ee11cbb19052e40b07aac0ca060c23ee"),128);
 			multresult = pusher.push0x11Message(StringUtil.hexStringToByteArray("ee11cbb19052e40b07aac0ca060c23ee"),128);
+			result = pusher.push0x20Message(StringUtil.hexStringToByteArray("cfcd208495d565ef66e7dff9f98764da"), "Hi".getBytes("UTF-8"));
 			
 			System.out.println(result);
 			
