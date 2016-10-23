@@ -1,4 +1,4 @@
-package cn.xunsci.simplepush.util;
+锘縫ackage cn.xunsci.simplepush.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,7 +13,7 @@ public static String DEFAULTFORMAT = "yyyy-MM-dd HH:mm:ss";
 	} 
     
 	/**
-	 * 当前时间
+	 * 褰撳墠鏃堕棿
 	 * @param pattern
 	 * @return
 	 */

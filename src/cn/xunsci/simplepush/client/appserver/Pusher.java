@@ -1,4 +1,4 @@
-package cn.xunsci.simplepush.client.appserver;
+锘縫ackage cn.xunsci.simplepush.client.appserver;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -167,8 +167,8 @@ public class Pusher {
 			boolean result;
 			boolean multresult;
 			pusher = new Pusher("192.168.1.3",9999, 5000);
-			//用户名user
-			//result = pusher.push0x20Message(StringUtil.hexStringToByteArray("ee11cbb19052e40b07aac0ca060c23ee"), "cmd=ntfurl|title=通知标题|content=通知内容|tt=提示标题|url=/m/admin/eml/inbox/list".getBytes("UTF-8"));
+			//鐢ㄦ埛鍚島ser
+			//result = pusher.push0x20Message(StringUtil.hexStringToByteArray("ee11cbb19052e40b07aac0ca060c23ee"), "cmd=ntfurl|title=閫氱煡鏍囬|content=閫氱煡鍐呭|tt=鎻愮ず鏍囬|url=/m/admin/eml/inbox/list".getBytes("UTF-8"));
 			//result = pusher.push0x10Message(StringUtil.hexStringToByteArray("ee11cbb19052e40b07aac0ca060c23ee"));
 			//result = pusher.push0x11Message(StringUtil.hexStringToByteArray("ee11cbb19052e40b07aac0ca060c23ee"),128);
 			multresult = pusher.push0x11Message(StringUtil.hexStringToByteArray("ee11cbb19052e40b07aac0ca060c23ee"),128);

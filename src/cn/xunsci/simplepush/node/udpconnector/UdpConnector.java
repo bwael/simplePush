@@ -1,4 +1,4 @@
-package cn.xunsci.simplepush.node.udpconnector;
+ï»¿package cn.xunsci.simplepush.node.udpconnector;
 
 import java.net.InetSocketAddress;
 import java.nio.channels.DatagramChannel;
@@ -8,11 +8,11 @@ import cn.xunsci.simplepush.node.ServerMessage;
 import cn.xunsci.simplepush.util.PropertyUtil;
 
 /*
- * udp·şÎñÆ÷Ö÷Àà
+ * udpæœåŠ¡å™¨ä¸»ç±»
  */
 public class UdpConnector {
 	
-	protected DatagramChannel antenna;//ÌìÏß
+	protected DatagramChannel antenna;//å¤©çº¿
 	
 	protected Receiver receiver;
 	protected Sender sender;

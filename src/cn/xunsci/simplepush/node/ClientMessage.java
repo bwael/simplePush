@@ -1,80 +1,80 @@
-package cn.xunsci.simplepush.node;
+ï»¿package cn.xunsci.simplepush.node;
 
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 
 import cn.xunsci.simplepush.util.StringUtil;
 
-//¿Í»§¶ËÏûÏ¢°üÀà
+//å®¢æˆ·ç«¯æ¶ˆæ¯åŒ…ç±»
 public final class ClientMessage{
 
-  //socketÌ×½Ó×ÖµØÖ·
+  //socketå¥—æ¥å­—åœ°å€
   protected SocketAddress address;
-  //ÏûÏ¢Êı¾İ
+  //æ¶ˆæ¯æ•°æ®
   protected byte[] data;
 
-  //¹¹Ôì
+  //æ„é€ 
   public ClientMessage(SocketAddress address, byte[] data) throws Exception{
       this.address = address;
       this.data = data;
   }
 
-  //ÉèÖÃ¡¢ĞŞ¸ÄÏûÏ¢°üÊı¾İÌå
+  //è®¾ç½®ã€ä¿®æ”¹æ¶ˆæ¯åŒ…æ•°æ®ä½“
   public void setData(byte[] data){
       this.data = data;
   }
 
-  //»ñÈ¡ÏûÏ¢°ü¾ßÌåµÄÏûÏ¢Êı¾İ
+  //è·å–æ¶ˆæ¯åŒ…å…·ä½“çš„æ¶ˆæ¯æ•°æ®
   public byte[] getData(){
       return this.data;
   }
 
-  //»ñµÃÌ×½Ó×ÖµØÖ·
+  //è·å¾—å¥—æ¥å­—åœ°å€
   public SocketAddress getSocketAddress(){
       return this.address;
   }
 
-  //ÉèÖÃÏûÏ¢°üµÄÌ×½Ó×ÖµØÖ·
+  //è®¾ç½®æ¶ˆæ¯åŒ…çš„å¥—æ¥å­—åœ°å€
   public void setSocketAddress(SocketAddress addr){
       this.address = addr;
   }
 
-  //»ñµÃµ½ÏûÏ¢Êı¾İµÄversion
+  //è·å¾—åˆ°æ¶ˆæ¯æ•°æ®çš„version
   public int getVersionNum(){
       byte b = data[0];
       return b & 0xff;
   }
 
-  //»ñµÃÏûÏ¢°üµÃÀàĞÍ   0 ĞÄÌø£¬16 Í¨ÓÃÏûÏ¢  17 ·ÖÀàÏûÏ¢  32 ×Ô¶¨ÒåÏûÏ¢
+  //è·å¾—æ¶ˆæ¯åŒ…å¾—ç±»å‹   0 å¿ƒè·³ï¼Œ16 é€šç”¨æ¶ˆæ¯  17 åˆ†ç±»æ¶ˆæ¯  32 è‡ªå®šä¹‰æ¶ˆæ¯
   public int getCmd(){
       byte b = data[2];
       return b & 0xff;
   }
 
-  //»ñÈ¡ÏûÏ¢°üÖĞÏûÏ¢Êı¾İµÄ³¤¶È
+  //è·å–æ¶ˆæ¯åŒ…ä¸­æ¶ˆæ¯æ•°æ®çš„é•¿åº¦
   public int getDataLength(){
       return (int)ByteBuffer.wrap(data, 19, 2).getChar();
   }
 
-  //»ñÈ¡uuid
+  //è·å–uuid
   public String getUuidHexString(){
       return StringUtil.convert(data, 3, 16);
   }
 
-  //¼ì²âÏûÏ¢Êı¾İ°ü¸ñÊ½ÊÇ·ñÕıÈ·
+  //æ£€æµ‹æ¶ˆæ¯æ•°æ®åŒ…æ ¼å¼æ˜¯å¦æ­£ç¡®
   public boolean checkFormat(){
       if(this.data == null){
           return false;
       }
-      //ÏûÏ¢°ü³¤¶È¼ì²â
+      //æ¶ˆæ¯åŒ…é•¿åº¦æ£€æµ‹
       if(data.length < Constant.CLIENT_MESSAGE_MIN_LENGTH){
           return false;
       }
-      //ÏûÏ¢°ü°æ±¾¼ì²â
+      //æ¶ˆæ¯åŒ…ç‰ˆæœ¬æ£€æµ‹
       if(getVersionNum() != Constant.VERSION_NUM){
           return false;
       }
-      //ÏûÏ¢ÀàĞÍ¼ì²â
+      //æ¶ˆæ¯ç±»å‹æ£€æµ‹
       int cmd = getCmd();
       if(cmd != ClientStatMachine.CMD_0x00
               //&& cmd != ClientStatMachine.CMD_0x01
@@ -84,12 +84,12 @@ public final class ClientMessage{
               && cmd != ClientStatMachine.CMD_0xff){
           return false;
       }
-      //ÏûÏ¢³¤¶È¼ì²â
+      //æ¶ˆæ¯é•¿åº¦æ£€æµ‹
       int dataLen = getDataLength();
       if(data.length != dataLen + Constant.CLIENT_MESSAGE_MIN_LENGTH){
           return false;
       }
-      //ÏûÏ¢ÀàĞÍºÍÏûÏ¢ÄÚÈİ³¤¶È¸ñÊ½¼ì²â
+      //æ¶ˆæ¯ç±»å‹å’Œæ¶ˆæ¯å†…å®¹é•¿åº¦æ ¼å¼æ£€æµ‹
       if(cmd ==  ClientStatMachine.CMD_0x00 && dataLen != 0){
           return false;
       }

@@ -1,4 +1,4 @@
-package cn.xunsci.simplepush.util;
+ï»¿package cn.xunsci.simplepush.util;
 
 import java.security.MessageDigest;
 import java.util.UUID;
@@ -7,10 +7,10 @@ import java.util.UUID;
 public class StringUtil {
 		
 	/**
-     * ¼ì²â´«ÈëµÄStringÀàĞÍ²ÎÊıÊÇ·ñÎª null
-     * Èç¹û´«ÈëµÄ²ÎÊıÎªnull¾Í·µ»Ø ""£¨¿Õ×Ö·û´®£©
-     * ·ñÔò¾Í·µ»Ø²ÎÊı±¾Éí
-     * ×÷ÓÃ£º·ÀÖ¹×Ö·û´®³öÏÖ ¿ÕÖ¸Õë Òì³£
+     * æ£€æµ‹ä¼ å…¥çš„Stringç±»å‹å‚æ•°æ˜¯å¦ä¸º null
+     * å¦‚æœä¼ å…¥çš„å‚æ•°ä¸ºnullå°±è¿”å› ""ï¼ˆç©ºå­—ç¬¦ä¸²ï¼‰
+     * å¦åˆ™å°±è¿”å›å‚æ•°æœ¬èº«
+     * ä½œç”¨ï¼šé˜²æ­¢å­—ç¬¦ä¸²å‡ºç° ç©ºæŒ‡é’ˆ å¼‚å¸¸
      * */
 		public static String checkBlankString(String param) {
 			if (param == null) {
@@ -18,7 +18,7 @@ public class StringUtil {
 			}
 			return param;
 		}
-		//MD5¼ÓÃÜ
+		//MD5åŠ å¯†
 		public static String md5(String encryptStr) throws Exception {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			md.update(encryptStr.getBytes("UTF-8"));
@@ -32,7 +32,7 @@ public class StringUtil {
 			encryptStr = md5.toString();
 			return encryptStr;
 		}
-		//sha1¼ÓÃÜ
+		//sha1åŠ å¯†
 		public static String sha1(String encryptStr) throws Exception {
 			MessageDigest md = MessageDigest.getInstance("SHA1");
 			md.update(encryptStr.getBytes("UTF-8"));
@@ -46,23 +46,23 @@ public class StringUtil {
 			encryptStr = sha1.toString();
 			return encryptStr;
 		}
-		//md5¼ÓÃÜ×Ö·û´®¡£·µ»Ø¼ÓÃÜºóµÄbyte[] 
+		//md5åŠ å¯†å­—ç¬¦ä¸²ã€‚è¿”å›åŠ å¯†åçš„byte[] 
 		public static byte[] md5Byte(String encryptStr) throws Exception {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			md.update(encryptStr.getBytes("UTF-8"));
 			return md.digest();
 		}
-		//sha1¼ÓÃÜ×Ö·û´®¡£·µ»Ø¼ÓÃÜºóµÄbyte[] 
+		//sha1åŠ å¯†å­—ç¬¦ä¸²ã€‚è¿”å›åŠ å¯†åçš„byte[] 
 		public static byte[] sha1Byte(String encryptStr) throws Exception {
 			MessageDigest md = MessageDigest.getInstance("SHA1");
 			md.update(encryptStr.getBytes("UTF-8"));
 			return md.digest();
 		}
-		//»ñµÃUUID(Ê¹ÓÃJDKÉú³ÉµÄUIID) ²¢½«ÏµÍ³Éú³ÉµÄÄ¬ÈÏµÄUUIDÖĞ¼äµÄ ¡°-¡± È¥µô ²¢·µ»ØÕâ¸ö´¦Àí¹ıµÄUUID
+		//è·å¾—UUID(ä½¿ç”¨JDKç”Ÿæˆçš„UIID) å¹¶å°†ç³»ç»Ÿç”Ÿæˆçš„é»˜è®¤çš„UUIDä¸­é—´çš„ â€œ-â€ å»æ‰ å¹¶è¿”å›è¿™ä¸ªå¤„ç†è¿‡çš„UUID
 		public static String genUUIDHexString(){
 			return UUID.randomUUID().toString().replaceAll("-", "");
 		}
-		//½«16½øÖÆ×Ö·û´®½âÎö³ÉUUID²¢·µ»Ø
+		//å°†16è¿›åˆ¶å­—ç¬¦ä¸²è§£ææˆUUIDå¹¶è¿”å›
 		public static UUID parseUUIDFromHexString(String hexUUID) throws Exception{
 			byte[] data = hexStringToByteArray(hexUUID);
 			long msb = 0;
@@ -75,7 +75,7 @@ public class StringUtil {
 	        
 	        return new java.util.UUID(msb,lsb);
 		}
-		//½«´«ÈëµÄÖµ×ª»»³É 16 ½øÖÆÊı×Ö ²¢·µ»Ø
+		//å°†ä¼ å…¥çš„å€¼è½¬æ¢æˆ 16 è¿›åˆ¶æ•°å­— å¹¶è¿”å›
 	    private static char convertDigit(int value) {
 
 	        value &= 0x0f;
@@ -85,7 +85,7 @@ public class StringUtil {
 	            return ((char) (value + '0'));
 
 	    }
-	    //½«Ò»¸ö16½øÖÆ×Ö·û´®×ª»»³É×Ö½ÚÊı×é ²¢·µ»Ø
+	    //å°†ä¸€ä¸ª16è¿›åˆ¶å­—ç¬¦ä¸²è½¬æ¢æˆå­—èŠ‚æ•°ç»„ å¹¶è¿”å›
 	    public static byte[] hexStringToByteArray(String s) {
 	        int len = s.length();
 	        byte[] data = new byte[len / 2];
@@ -95,7 +95,7 @@ public class StringUtil {
 	        }
 	        return data;
 	    }
-		//½«×Ö½ÚÊı×é×ª»»³ÉÒ»¸ö¿É´òÓ¡µÄ¸ñÊ½°üº¬Ò»¸öÊ®Áù½øÖÆÊı×Ö×Ö·ûµÄ×Ö·û´®(Á½¸ö×Ö½Ú)
+		//å°†å­—èŠ‚æ•°ç»„è½¬æ¢æˆä¸€ä¸ªå¯æ‰“å°çš„æ ¼å¼åŒ…å«ä¸€ä¸ªåå…­è¿›åˆ¶æ•°å­—å­—ç¬¦çš„å­—ç¬¦ä¸²(ä¸¤ä¸ªå­—èŠ‚)
 	    public static String convert(final byte bytes[]) {
 
 	        StringBuffer sb = new StringBuffer(bytes.length * 2);
@@ -106,7 +106,7 @@ public class StringUtil {
 	        return (sb.toString());
 
 	    }
-	    //½«×Ö½ÚÊı×éµÄ Ò»²¿·Ö ×ª»»³ÉÒ»¸ö¿É´òÓ¡µÄ¸ñÊ½°üº¬Ò»¸öÊ®Áù½øÖÆÊı×Ö×Ö·ûµÄ×Ö·û´®(Á½¸ö×Ö½Ú)
+	    //å°†å­—èŠ‚æ•°ç»„çš„ ä¸€éƒ¨åˆ† è½¬æ¢æˆä¸€ä¸ªå¯æ‰“å°çš„æ ¼å¼åŒ…å«ä¸€ä¸ªåå…­è¿›åˆ¶æ•°å­—å­—ç¬¦çš„å­—ç¬¦ä¸²(ä¸¤ä¸ªå­—èŠ‚)
 	    public static String convert(final byte bytes[],int pos, int len) {
 
 	        StringBuffer sb = new StringBuffer(len * 2);

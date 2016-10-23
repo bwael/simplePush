@@ -1,4 +1,4 @@
-package cn.xunsci.simplepush.node;
+ï»¿package cn.xunsci.simplepush.node;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -52,7 +52,7 @@ public class IMServer {
 		}
 		return server;
 	}
-	//³õÊ¼»¯
+	//åˆå§‹åŒ–
 	public void init() throws Exception{
 		initPushListener();
 		initConsole();
@@ -62,20 +62,20 @@ public class IMServer {
 		initCleaner();
 		
 	}
-	//³õÊ¼»¯¿ØÖÆÌ¨
+	//åˆå§‹åŒ–æŽ§åˆ¶å°
 	public void initConsole() throws Exception{
 		console = new IMServerConsole();
 		cmdThread = new Thread(console,"IMServer-console");
 		cmdThread.setDaemon(true);
 		cmdThread.start();
 	}
-	//³õÊ¼»¯udpÁ¬½Ó
+	//åˆå§‹åŒ–udpè¿žæŽ¥
 	public void initUdpConnector() throws Exception{
 		System.out.println("start connector...");
 		udpConnector = new UdpConnector();
 		udpConnector.start();
 	}
-	//³õÊ¼»¯TCPÁ¬½Ó
+	//åˆå§‹åŒ–TCPè¿žæŽ¥
 	public void initTcpConnector() throws Exception{
 		if(!"YES".equalsIgnoreCase(PropertyUtil.getProperty("TCP_CONNECTOR_ENABLE"))){
 			return;
@@ -105,13 +105,13 @@ public class IMServer {
 		clearnThread = new Thread(cleaner,"IMServer-cleaner");
 		clearnThread.start();
 	}
-	//³õÊ¼»¯ÍÆËÍ¼àÌýÆ÷
+	//åˆå§‹åŒ–æŽ¨é€ç›‘å¬å™¨
 	public void initPushListener() throws Exception{
 		pushListener = new NIOPushListener();
 		pushThread =  new Thread(pushListener,"IMServer-push-listener");
 		pushThread.start();
 	}
-	//Æô¶¯simplePush·þÎñÆ÷
+	//å¯åŠ¨simplePushæœåŠ¡å™¨
 	public void start() throws Exception{
 		System.out.println("working dir: "+System.getProperty("user.dir"));
 		init();
@@ -145,7 +145,7 @@ public class IMServer {
 		this.quit();
 		
 	}
-	//×Ô¶¯ÇåÀí
+	//è‡ªåŠ¨æ¸…ç†
 	private void autoClean(){
 		float percent = PropertyUtil.getPropertyFloat("CLEANER_AUTO_RUN_MEM_PERCENT");
 		if(percent >=1 || percent <=0){
@@ -157,7 +157,7 @@ public class IMServer {
 			cleaner.wakeup();
 		}
 	}
-	//Í£Ö¹·þÎñÆ÷
+	//åœæ­¢æœåŠ¡å™¨
 	public void stop() {
 		this.stoped = true;
 		synchronized(this){
@@ -165,7 +165,7 @@ public class IMServer {
 		}
 		
 	}
-	//ÍË³ö
+	//é€€å‡º
 	protected void quit() throws Exception{
 		try{
 			stopWorkers();
@@ -217,11 +217,11 @@ public class IMServer {
 		pushListener.stop();
 		pushThread.join();
 	}
-	//±£´æ½Úµã×´Ì¬
+	//ä¿å­˜èŠ‚ç‚¹çŠ¶æ€
 	public void saveStatus() throws Exception{
 		nodeStatus.saveToFile();
 	}
-	//»ñÈ¡µ±Ç°ÔËÐÐ×´Ì¬
+	//èŽ·å–å½“å‰è¿è¡ŒçŠ¶æ€
 	public String getStatusString(){
 		StringBuffer sb = new StringBuffer();
 		

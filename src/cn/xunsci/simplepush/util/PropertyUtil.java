@@ -1,4 +1,4 @@
-package cn.xunsci.simplepush.util;
+ï»¿package cn.xunsci.simplepush.util;
 
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -6,30 +6,30 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class PropertyUtil {
-	//Ä¬ÈÏÅäÖÃÎÄ¼şÃû
+	//é»˜è®¤é…ç½®æ–‡ä»¶å
     public static final String DEFAULTSET = "simplepush";
 
-    //map¼¯ºÏ¡£ÓÃÀ´´æ·ÅProperty
+    //mapé›†åˆã€‚ç”¨æ¥å­˜æ”¾Property
     protected static HashMap<String,Properties> propertiesSets = new HashMap<String, Properties>();
 
     private PropertyUtil() {}
 
-    //½«DEFAULTSETÅäÖÃÎÄ¼ş¶ÁÈ¡±£´æµ½map¼¯ºÏÖĞ
+    //å°†DEFAULTSETé…ç½®æ–‡ä»¶è¯»å–ä¿å­˜åˆ°mapé›†åˆä¸­
     protected static void init() {
         init(DEFAULTSET);
     }
 	/*
-	 * ³õÊ¼»¯
-	 * ¶ÁÈ¡Ä¬ÈÏµÄsimplePushÅäÖÃĞÅÏ¢£¬Ê¹ÓÃutf-8±àÂë
-	 * ²¢½«ÆäĞòÁĞ»¯±£´æÔÚmap·½±ã¶ÁÈ¡Ê¹ÓÃ
+	 * åˆå§‹åŒ–
+	 * è¯»å–é»˜è®¤çš„simplePushé…ç½®ä¿¡æ¯ï¼Œä½¿ç”¨utf-8ç¼–ç 
+	 * å¹¶å°†å…¶åºåˆ—åŒ–ä¿å­˜åœ¨mapæ–¹ä¾¿è¯»å–ä½¿ç”¨
 	 */
 	protected static void init(String setName) {
 
-		//ÓÃÅäÖÃ±íÎÄ¼ş´´½¨ResourceBundle¶ÔÏó¡£À´½âÎöÅäÖÃ±íÎÄ¼ş
+		//ç”¨é…ç½®è¡¨æ–‡ä»¶åˆ›å»ºResourceBundleå¯¹è±¡ã€‚æ¥è§£æé…ç½®è¡¨æ–‡ä»¶
         ResourceBundle rb = ResourceBundle.getBundle(setName);
-        //´´½¨Ò»¸ö¿Õ°×µÄProperties¶ÔÏó¡£ÓÃÀ´±£´æ¶ÁÈ¡µÄÅäÖÃ±íÎÄ¼şµÄÅäÖÃÊı¾İ
+        //åˆ›å»ºä¸€ä¸ªç©ºç™½çš„Propertieså¯¹è±¡ã€‚ç”¨æ¥ä¿å­˜è¯»å–çš„é…ç½®è¡¨æ–‡ä»¶çš„é…ç½®æ•°æ®
         Properties properties = new Properties();
-        //±éÀúÅäÖÃ±í£¬µÃµ½ key value,×ªÎªutf-8¸ñÊ½
+        //éå†é…ç½®è¡¨ï¼Œå¾—åˆ° key value,è½¬ä¸ºutf-8æ ¼å¼
 		Enumeration<String> eu = rb.getKeys();
 		while(eu.hasMoreElements()){
 			String key = eu.nextElement().trim();
@@ -39,15 +39,15 @@ public class PropertyUtil {
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-			//·ÅÈëproperties¶ÔÏó
+			//æ”¾å…¥propertieså¯¹è±¡
 			properties.put(key.toUpperCase(), value);
 		}
-		//·ÅÈëmap¼¯ºÏÖĞ
+		//æ”¾å…¥mapé›†åˆä¸­
 		propertiesSets.put(setName, properties);
 		
 	}
 	/*
-	 * »ñÈ¡ÅäÖÃµÄ¾²Ì¬·½·¨
+	 * è·å–é…ç½®çš„é™æ€æ–¹æ³•
 	 */
 	public static String getProperty(String key){
 		if(propertiesSets.get(DEFAULTSET) == null){

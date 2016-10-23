@@ -1,4 +1,4 @@
-package cn.xunsci.simplepush.client.appuser;
+ï»¿package cn.xunsci.simplepush.client.appuser;
 
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -7,62 +7,62 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicLong;
 
 /*
- * TCP¿Í»§¶Ë»ùÀà
+ * TCPå®¢æˆ·ç«¯åŸºç±»
  */
 public abstract class TCPClientBase implements Runnable{
 	
-	//Á¬½Ó³¬Ê±    10s
+	//è¿æ¥è¶…æ—¶    10s
 	protected static int connectTimeout = 10;
-	//Ì×½Ó×Ö»º³å
+	//å¥—æ¥å­—ç¼“å†²
 	protected SocketChannel channel;
-	//×îºóÒ»´Î·¢ËÍÊ±¼ä
+	//æœ€åä¸€æ¬¡å‘é€æ—¶é—´
 	protected long lastSent = 0;
-	//Ô¶³Ì·şÎñÆ÷¶Ë¿Ú
+	//è¿œç¨‹æœåŠ¡å™¨ç«¯å£
 	protected int remotePort = 9966;
 	//appid
 	protected int appid = 1;
 	//uuid
 	protected byte[] uuid;
-	//Ô¶³Ì·şÎñÆ÷µØÖ·
+	//è¿œç¨‹æœåŠ¡å™¨åœ°å€
 	protected String remoteAddress = null;
-	//²¢·¢ÏûÏ¢¶ÓÁĞ
+	//å¹¶å‘æ¶ˆæ¯é˜Ÿåˆ—
 	protected ConcurrentLinkedQueue<Message> mq = new ConcurrentLinkedQueue<Message>();
 	
-	//ÏûÏ¢¶ÓÁĞ½ÓÊÕÏûÏ¢¼ÆÊı
+	//æ¶ˆæ¯é˜Ÿåˆ—æ¥æ”¶æ¶ˆæ¯è®¡æ•°
 	protected AtomicLong queueIn = new AtomicLong(0);
-	//ÏûÏ¢¶ÓÁĞ·¢ËÍÏûÏ¢¼ÆÊı
+	//æ¶ˆæ¯é˜Ÿåˆ—å‘é€æ¶ˆæ¯è®¡æ•°
 	protected AtomicLong queueOut = new AtomicLong(0);
 
-	//»º³åÇø´óĞ¡
+	//ç¼“å†²åŒºå¤§å°
 	protected int bufferSize = 1024;
-	//ĞÄÌø°ü¼ä¸ô     50s
+	//å¿ƒè·³åŒ…é—´éš”     50s
 	protected int heartbeatInterval = 50;
 	
-	//ÓÃÓÚ´æ·ÅÏûÏ¢Êı¾İ
+	//ç”¨äºå­˜æ”¾æ¶ˆæ¯æ•°æ®
 	protected byte[] bufferArray;
-	//ÓÃÓÚ´¦ÀíÏûÏ¢Êı¾İµÄ»º³åÇø
+	//ç”¨äºå¤„ç†æ¶ˆæ¯æ•°æ®çš„ç¼“å†²åŒº
 	protected ByteBuffer buffer;
-	//ÊÇ·ñÖØÖÃÁ¬½Ó
+	//æ˜¯å¦é‡ç½®è¿æ¥
 	protected boolean needReset = true;
 	
-	//Æô¶¯×´Ì¬±êÊ¶
+	//å¯åŠ¨çŠ¶æ€æ ‡è¯†
 	protected boolean started = false;
-	//Í£Ö¹×´Ì¬±êÊ¶
+	//åœæ­¢çŠ¶æ€æ ‡è¯†
 	protected boolean stoped = false;
 	
-	//µ±Ç°TCPClientBaseÏß³Ì
+	//å½“å‰TCPClientBaseçº¿ç¨‹
 	protected Thread receiverT;
-	//¹¤×÷Ïß³ÌÀà£¬ÓÃÓÚÏûÏ¢´¦Àí
+	//å·¥ä½œçº¿ç¨‹ç±»ï¼Œç”¨äºæ¶ˆæ¯å¤„ç†
 	protected Worker worker;
-	//¹¤×÷Ïß³Ì
+	//å·¥ä½œçº¿ç¨‹
 	protected Thread workerT;
 	
-	//·¢°üÊı£¬ÊÕ°üÊı
+	//å‘åŒ…æ•°ï¼Œæ”¶åŒ…æ•°
 	private long sentPackets;
 	private long receivedPackets;
 	
 	/*
-	 * TCP¿Í»§¶Ë³õÊ¼»¯
+	 * TCPå®¢æˆ·ç«¯åˆå§‹åŒ–
 	 */
 	public TCPClientBase(byte[] uuid, int appid, String serverAddr, int serverPort, int connectTimeout) throws Exception{
 		if(uuid == null || uuid.length != 16){
@@ -82,7 +82,7 @@ public abstract class TCPClientBase implements Runnable{
 		TCPClientBase.connectTimeout = connectTimeout;
 	}
 	
-	//Èë¶Ó      ÏûÏ¢¼ÓÈëÏûÏ¢¶ÓÁĞ
+	//å…¥é˜Ÿ      æ¶ˆæ¯åŠ å…¥æ¶ˆæ¯é˜Ÿåˆ—
 	protected boolean enqueue(Message message){
 		boolean result = mq.add(message);
 		if(result == true){
@@ -90,7 +90,7 @@ public abstract class TCPClientBase implements Runnable{
 		}
 		return result;
 	}
-	//³ö¶Ó    ½«ÏûÏ¢´ÓÏûÏ¢¶ÓÁĞÖĞÈ¡³ö
+	//å‡ºé˜Ÿ    å°†æ¶ˆæ¯ä»æ¶ˆæ¯é˜Ÿåˆ—ä¸­å–å‡º
 	protected Message dequeue(){
 		Message m = mq.poll();
 		if(m != null){
@@ -99,19 +99,19 @@ public abstract class TCPClientBase implements Runnable{
 		return m;
 	}
 	
-	//³õÊ¼»¯ Êı¾İ¿é  »º³å
+	//åˆå§‹åŒ– æ•°æ®å—  ç¼“å†²
 	private synchronized void init(){
 		bufferArray = new byte[bufferSize];
 		buffer = ByteBuffer.wrap(bufferArray);
 		buffer.limit(Message.SERVER_MESSAGE_MIN_LENGTH);
 	}
 	
-	//socketÖØÖÃ  ºÍ·şÎñÆ÷µÄÁ¬½ÓÖĞ¶ÏºóÖØĞÂÁ¬½Ó 
+	//socketé‡ç½®  å’ŒæœåŠ¡å™¨çš„è¿æ¥ä¸­æ–­åé‡æ–°è¿æ¥ 
 	protected synchronized void reset() throws Exception{
 		if(needReset == false){
 			return;
 		}
-		//Èç¹ûsocketÍ¨µÀ != null ¾Í°ÑsocketÍ¨µÀÏú»Ù
+		//å¦‚æœsocketé€šé“ != null å°±æŠŠsocketé€šé“é”€æ¯
 		if(channel != null){
 			try{
 				channel.socket().close();
@@ -122,10 +122,10 @@ public abstract class TCPClientBase implements Runnable{
 				}catch(Exception e){
 				}
 		}
-		//¼ì²âÍøÂçÁ¬½Ó×´Ì¬ Èç¹ûÍøÂçÁ¬½Ó×´Ì¬Õı³£¾Í¿ªÊ¼´´½¨µ½Ô¶³Ì·şÎñÆ÷µÄÁ¬½Ó
+		//æ£€æµ‹ç½‘ç»œè¿æ¥çŠ¶æ€ å¦‚æœç½‘ç»œè¿æ¥çŠ¶æ€æ­£å¸¸å°±å¼€å§‹åˆ›å»ºåˆ°è¿œç¨‹æœåŠ¡å™¨çš„è¿æ¥
 		if(hasNetworkConnection() == true){
 			channel = SocketChannel.open();
-			//socket±»ÉèÖÃÎª×èÈû
+			//socketè¢«è®¾ç½®ä¸ºé˜»å¡
 			channel.configureBlocking(true);
 			channel.socket().connect(new InetSocketAddress(remoteAddress, remotePort), 1000*connectTimeout);
 			channel.socket().setSoTimeout(1000*5);
@@ -136,7 +136,7 @@ public abstract class TCPClientBase implements Runnable{
 	}
 	
 	/*
-	 * Æô¶¯TCPClient
+	 * å¯åŠ¨TCPClient
 	 */
 	public synchronized void start() throws Exception{
 		
@@ -145,30 +145,30 @@ public abstract class TCPClientBase implements Runnable{
 		}
 		this.init();
 		
-		//µ±Ç°Ïß³Ì
+		//å½“å‰çº¿ç¨‹
 		receiverT = new Thread(this,"SIMPLEPUSH-TCP-CLIENT-RECEIVER");
-		//ÊØ»¤Ïß³Ì
+		//å®ˆæŠ¤çº¿ç¨‹
 		receiverT.setDaemon(true);
 		synchronized(receiverT){
 			receiverT.start();
 			receiverT.wait();
 		}
 		
-		//¹¤×÷Ïß³Ì  ·¢ËÍĞÄÌø°ü  ÒÔ¼°´¦Àí½ÓÊÕµ½µÄÏûÏ¢
+		//å·¥ä½œçº¿ç¨‹  å‘é€å¿ƒè·³åŒ…  ä»¥åŠå¤„ç†æ¥æ”¶åˆ°çš„æ¶ˆæ¯
 		worker = new Worker();
 		workerT = new Thread(worker,"SIMPLEPUSH-TCP-CLIENT-WORKER");
-		//ÊØ»¤Ïß³Ì
+		//å®ˆæŠ¤çº¿ç¨‹
 		workerT.setDaemon(true);
 		synchronized(workerT){
 			workerT.start();
 			workerT.wait();
 		}
 		
-		//¸üĞÂ×´Ì¬±ê¼Ç
+		//æ›´æ–°çŠ¶æ€æ ‡è®°
 		this.started = true;
 	}
 	/*
-	 * Í£Ö¹TCPClientBase
+	 * åœæ­¢TCPClientBase
 	 */
 	public synchronized void stop(){
 		stoped = true;
@@ -187,20 +187,20 @@ public abstract class TCPClientBase implements Runnable{
 		}
 	}
 	/*
-	 * TCPClientBaseÏß³ÌÌå
+	 * TCPClientBaseçº¿ç¨‹ä½“
 	 * (non-Javadoc)
 	 * @see java.lang.Runnable#run()
 	 */
 	public void run(){
 		
-		//»½ĞÑµ±Ç°TCPClientBaseµÄËùÓĞ´¦ÓÚwait×´Ì¬µÄÏß³Ì
+		//å”¤é†’å½“å‰TCPClientBaseçš„æ‰€æœ‰å¤„äºwaitçŠ¶æ€çš„çº¿ç¨‹
 		synchronized(receiverT){
 			receiverT.notifyAll();
 		}
 		
 		while(stoped == false){
 			try{
-				//Èç¹ûÍøÂç×´Ì¬²»Õı³£ ÎŞÍøÂçÁ¬½Ó µÄÊ±ºò¡£¾ÍÒ»Ö±Ìø³öÑ­»·¡£²»Á¬½Ó·şÎñÆ÷ ²»´¦ÀíÊı¾İ¡£Ö±µ½ÍøÂçÁ¬½ÓÕı³£ 
+				//å¦‚æœç½‘ç»œçŠ¶æ€ä¸æ­£å¸¸ æ— ç½‘ç»œè¿æ¥ çš„æ—¶å€™ã€‚å°±ä¸€ç›´è·³å‡ºå¾ªç¯ã€‚ä¸è¿æ¥æœåŠ¡å™¨ ä¸å¤„ç†æ•°æ®ã€‚ç›´åˆ°ç½‘ç»œè¿æ¥æ­£å¸¸ 
 				if(hasNetworkConnection() == false){
 					try{
 						trySystemSleep();
@@ -208,9 +208,9 @@ public abstract class TCPClientBase implements Runnable{
 					}catch(Exception e){}
 					continue;
 				}
-				//ÖØÖÃsocket
+				//é‡ç½®socket
 				reset();
-				//½ÓÊÕ·şÎñÆ÷·¢À´µÄÊı¾İ
+				//æ¥æ”¶æœåŠ¡å™¨å‘æ¥çš„æ•°æ®
 				receiveData();
 			}catch(java.net.SocketTimeoutException e){
 				
@@ -245,21 +245,21 @@ public abstract class TCPClientBase implements Runnable{
 	}
 	
 	/*
-	 * ·¢ËÍĞÄÌø°ü
+	 * å‘é€å¿ƒè·³åŒ…
 	 */
 	private void heartbeat() throws Exception{
-		//ĞÄÌø¼ä¸ô50s
+		//å¿ƒè·³é—´éš”50s
 		if(System.currentTimeMillis() - lastSent < heartbeatInterval * 1000){
 			return;
 		}
-		//¹¹Ôì·¢ËÍĞÄÌø°ü£¬Ïê¼ûmessageÀà
+		//æ„é€ å‘é€å¿ƒè·³åŒ…ï¼Œè¯¦è§messageç±»
 		byte[] buffer = new byte[Message.CLIENT_MESSAGE_MIN_LENGTH];
 		ByteBuffer.wrap(buffer).put((byte)Message.version).put((byte)appid).put((byte)Message.CMD_0x00).put(uuid).putChar((char)0);
 		send(buffer);
 	}
 	
 	/*
-	 * ½ÓÊÕ·şÎñÆ÷ÏûÏ¢
+	 * æ¥æ”¶æœåŠ¡å™¨æ¶ˆæ¯
 	 */
 	private void receiveData() throws Exception{
 		while(hasPacket() == false){
@@ -280,20 +280,20 @@ public abstract class TCPClientBase implements Runnable{
 		
 		byte[] data = new byte[buffer.position()];
 		
-		//½«½ÓÊÜµ½µÃÊı¾İ¿½±´µ½Ò»¸öĞÂµÄbyte[]ÖĞÒÔ±ã 
-        //µ±Ç°µÄbufferÄÜ¹»¼ÌĞøµÄ½ÓÊÜ·şÎñÆ÷·¢ËÍÀ´µÃÏûÏ¢Êı¾İ
+		//å°†æ¥å—åˆ°å¾—æ•°æ®æ‹·è´åˆ°ä¸€ä¸ªæ–°çš„byte[]ä¸­ä»¥ä¾¿ 
+        //å½“å‰çš„bufferèƒ½å¤Ÿç»§ç»­çš„æ¥å—æœåŠ¡å™¨å‘é€æ¥å¾—æ¶ˆæ¯æ•°æ®
 		System.arraycopy(bufferArray, 0, data, 0, buffer.position());
-		//¸ù¾İ·şÎñÆ÷·¢ËÍÀ´µÃÏûÏ¢Êı¾İ¡£´´½¨Ò»¸öMessageÏûÏ¢Êı¾İ°ü
+		//æ ¹æ®æœåŠ¡å™¨å‘é€æ¥å¾—æ¶ˆæ¯æ•°æ®ã€‚åˆ›å»ºä¸€ä¸ªMessageæ¶ˆæ¯æ•°æ®åŒ…
 		Message m = new Message(channel.socket().getRemoteSocketAddress(), data);
 		buffer.clear();
 		buffer.limit(Message.SERVER_MESSAGE_MIN_LENGTH);
 		if(m.checkFormat() == false){
 			return;
 		}
-		this.receivedPackets++;//½ÓÊÜ°ü¼ÆÊı¼ÓÒ»
-		//Ïò·şÎñÆ÷·¢ËÍÈ·ÈÏÓ¦´ğ
+		this.receivedPackets++;//æ¥å—åŒ…è®¡æ•°åŠ ä¸€
+		//å‘æœåŠ¡å™¨å‘é€ç¡®è®¤åº”ç­”
 		this.ackServer(m);
-		//Èç¹ûÊÇĞÄÌø°ü£¬¶ªÆú
+		//å¦‚æœæ˜¯å¿ƒè·³åŒ…ï¼Œä¸¢å¼ƒ
 		if(m.getCmd() == Message.CMD_0x00){
 			return;
 		}
@@ -302,7 +302,7 @@ public abstract class TCPClientBase implements Runnable{
 	}
 	
 	/*
-	 * ÅĞ¶ÏÊÇ·ñÓĞ¿ÉÒÔ½ÓÊÕµÄÊı¾İ
+	 * åˆ¤æ–­æ˜¯å¦æœ‰å¯ä»¥æ¥æ”¶çš„æ•°æ®
 	 */
 	private boolean hasPacket(){
 		if(buffer.limit() == Message.SERVER_MESSAGE_MIN_LENGTH){
@@ -326,9 +326,9 @@ public abstract class TCPClientBase implements Runnable{
 		}
 	}
 	/*
-	 * ¶Ô·şÎñÆ÷×ö³öÓ¦´ğ
-	 * ËµÃ÷ÒÑ¾­½ÓÊÕµ½À´×Ô·şÎñÆ÷µÄÊı¾İ°ü
-	 * ²¢ËµÃ÷ÊÜµ½ÁËÔõÑùµÄÊı¾İ°ü
+	 * å¯¹æœåŠ¡å™¨åšå‡ºåº”ç­”
+	 * è¯´æ˜å·²ç»æ¥æ”¶åˆ°æ¥è‡ªæœåŠ¡å™¨çš„æ•°æ®åŒ…
+	 * å¹¶è¯´æ˜å—åˆ°äº†æ€æ ·çš„æ•°æ®åŒ…
 	 */
 	private void ackServer(Message m) throws Exception{
 		if(m.getCmd() == Message.CMD_0x10){
@@ -348,7 +348,7 @@ public abstract class TCPClientBase implements Runnable{
 			send(buffer);
 		}
 	}
-	//Ïò·şÎñÆ÷·¢ËÍÊı¾İ
+	//å‘æœåŠ¡å™¨å‘é€æ•°æ®
 	private void send(byte[] data) throws Exception{
 		if(data == null){
 			return;
@@ -356,13 +356,13 @@ public abstract class TCPClientBase implements Runnable{
 		if(channel == null || channel.isOpen() == false || channel.isConnected() == false){
 			return;
 		}
-		//»º³åÇø°ü¹üÊı¾İ
+		//ç¼“å†²åŒºåŒ…è£¹æ•°æ®
 		ByteBuffer bb = ByteBuffer.wrap(data);
-		//¼ì²â×´Ì¬£¬Ğ´Èë
+		//æ£€æµ‹çŠ¶æ€ï¼Œå†™å…¥
 		while(bb.hasRemaining()){
 			channel.write(bb);
 		}
-		//È¡³ö£¬flush,ËµÊÇË¢ĞÂ¿ÉÄÜ¸üºÏÊÊ£¬flush¾ÍÊÇ´ÓcacheÀïÍÆ³öÈ¥ÁË
+		//å–å‡ºï¼Œflush,è¯´æ˜¯åˆ·æ–°å¯èƒ½æ›´åˆé€‚ï¼Œflushå°±æ˜¯ä»cacheé‡Œæ¨å‡ºå»äº†
 		channel.socket().getOutputStream().flush();
 		lastSent = System.currentTimeMillis();
 		this.sentPackets++;
@@ -380,7 +380,7 @@ public abstract class TCPClientBase implements Runnable{
 		return lastSent;
 	}
 	
-	//ÉèÖÃĞÄÌø¼ä¸ô
+	//è®¾ç½®å¿ƒè·³é—´éš”
 	public void setHeartbeatInterval(int second){
 		if(second <= 0){
 			return;
@@ -394,30 +394,30 @@ public abstract class TCPClientBase implements Runnable{
 	
 	public abstract boolean hasNetworkConnection();
 	public abstract void trySystemSleep();
-	public abstract void onPushMessage(Message message);//ÊÕµ½ÏûÏ¢µÄ ÏûÏ¢´¦Àí »Øµ÷
+	public abstract void onPushMessage(Message message);//æ”¶åˆ°æ¶ˆæ¯çš„ æ¶ˆæ¯å¤„ç† å›è°ƒ
 	
-	//¹¤×÷Ïß³ÌÀà     ·¢ËÍĞÄÌø°üÒÔ¼°´¦ÀíÊÕµ½µÄÏûÏ¢°ü
+	//å·¥ä½œçº¿ç¨‹ç±»     å‘é€å¿ƒè·³åŒ…ä»¥åŠå¤„ç†æ”¶åˆ°çš„æ¶ˆæ¯åŒ…
 	class Worker implements Runnable{
 		public void run(){
-			//»½ĞÑ¹¤×÷Ïß³Ì
+			//å”¤é†’å·¥ä½œçº¿ç¨‹
 			synchronized(workerT){
 				workerT.notifyAll();
 			}
 			while(stoped == false){
 				try{
-					//³¢ÊÔ·¢ËÍĞÄÌø
+					//å°è¯•å‘é€å¿ƒè·³
 					heartbeat();
 					//handle message
 					handleEvent();
 				}catch(Exception e){
 					e.printStackTrace();
 				}finally{
-					//ĞİÃßµÈ´ı
+					//ä¼‘çœ ç­‰å¾…
 					waitMsg();
 				}
 			}
 		}
-		//ĞİÃß1s
+		//ä¼‘çœ 1s
 		private void waitMsg(){
 			synchronized(this){
 				try{
@@ -429,13 +429,13 @@ public abstract class TCPClientBase implements Runnable{
 				}
 			}
 		}
-		//»½ĞÑWorkerÀïµÄËùÓĞwait×´Ì¬µÄÏß³ÌÍË³öwait×´Ì¬¡£
+		//å”¤é†’Workeré‡Œçš„æ‰€æœ‰waitçŠ¶æ€çš„çº¿ç¨‹é€€å‡ºwaitçŠ¶æ€ã€‚
 		private void wakeup(){
 			synchronized(this){
 				this.notifyAll();
 			}
 		}
-		 //´¦ÀíMessageÏûÏ¢
+		 //å¤„ç†Messageæ¶ˆæ¯
 		private void handleEvent() throws Exception{
 			Message m = null;
 			while(true){
@@ -448,8 +448,8 @@ public abstract class TCPClientBase implements Runnable{
 				}
 
 				//real work here
-				//ÊÕµ½Ò»¸öÏûÏ¢¡£ÔÚÕâÀï»Øµ÷ÏûÏ¢´¦ÀíµÄº¯Êı 
-                //½«µ±Ç°ÏûÏ¢´«µİ¸øÏûÏ¢´¦Àíº¯Êı
+				//æ”¶åˆ°ä¸€ä¸ªæ¶ˆæ¯ã€‚åœ¨è¿™é‡Œå›è°ƒæ¶ˆæ¯å¤„ç†çš„å‡½æ•° 
+                //å°†å½“å‰æ¶ˆæ¯ä¼ é€’ç»™æ¶ˆæ¯å¤„ç†å‡½æ•°
 				onPushMessage(m);
 			}
 			//finish work here, such as release wake lock

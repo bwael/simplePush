@@ -1,4 +1,4 @@
-package cn.xunsci.simplepush.node;
+﻿package cn.xunsci.simplepush.node;
 
 import java.io.File;
 import java.io.FileInputStream;

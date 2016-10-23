@@ -1,4 +1,4 @@
-package cn.xunsci.simplepush.client.appuser;
+﻿package cn.xunsci.simplepush.client.appuser;
 
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;

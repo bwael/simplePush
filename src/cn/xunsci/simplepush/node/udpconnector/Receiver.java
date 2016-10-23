@@ -1,4 +1,4 @@
-package cn.xunsci.simplepush.node.udpconnector;
+﻿package cn.xunsci.simplepush.node.udpconnector;
 
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import cn.xunsci.simplepush.node.ClientMessage;
 
 /*
- * UDP ������ ���ܿͻ�����Ϣ�Ĵ�����
+ * UDP 服务器 接受客户端消息的处理类
  */
 public class Receiver implements Runnable{
 	
@@ -108,7 +108,7 @@ public class Receiver implements Runnable{
 			if(m == null){
 				return null;
 			}
-			if(m.checkFormat() == true){//�?查包格式是否合法，为了网络快速响应，在这里检查，不在接收线程�?�?
+			if(m.checkFormat() == true){//妫?鏌ュ寘鏍煎紡鏄惁鍚堟硶锛屼负浜嗙綉缁滃揩閫熷搷搴旓紝鍦ㄨ繖閲屾鏌ワ紝涓嶅湪鎺ユ敹绾跨▼妫?鏌?
 				return m;
 			}
 		}

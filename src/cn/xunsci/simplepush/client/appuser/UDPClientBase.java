@@ -1,4 +1,4 @@
-package cn.xunsci.simplepush.client.appuser;
+ï»¿package cn.xunsci.simplepush.client.appuser;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -9,11 +9,11 @@ import java.util.concurrent.atomic.AtomicLong;
 
 
 /*
- * UDP¿Í»§¶Ë»ùÀà£¬ÓëTCPClientBase»ù±¾Ò»ÖÂ
+ * UDPå®¢æˆ·ç«¯åŸºç±»ï¼Œä¸TCPClientBaseåŸºæœ¬ä¸€è‡´
  */
 public abstract class UDPClientBase implements Runnable {
 	
-	//UDPÌ×½Ó×Ö
+	//UDPå¥—æ¥å­—
 	protected DatagramSocket ds;
 	protected long lastSent = 0;
 	protected long lastReceived = 0;
@@ -242,7 +242,7 @@ public abstract class UDPClientBase implements Runnable {
 		if(ds == null){
 			return;
 		}
-		//´´½¨UDPÊı¾İ°ü²¢·¢ËÍ
+		//åˆ›å»ºUDPæ•°æ®åŒ…å¹¶å‘é€
 		DatagramPacket dp = new DatagramPacket(data,data.length);
 		dp.setSocketAddress(ds.getRemoteSocketAddress());
 		ds.send(dp);
@@ -258,7 +258,7 @@ public abstract class UDPClientBase implements Runnable {
 		return this.receivedPackets;
 	}
 	
-	//·şÎñÆ÷¶Ë¿ÚºÅ
+	//æœåŠ¡å™¨ç«¯å£å·
 	public void setServerPort(int port){
 		this.remotePort = port;
 	}
@@ -267,7 +267,7 @@ public abstract class UDPClientBase implements Runnable {
 		return this.remotePort;
 	}
 	
-	//·şÎñÆ÷µØÖ·
+	//æœåŠ¡å™¨åœ°å€
 	public void setServerAddress(String addr){
 		this.remoteAddress = addr;
 	}
@@ -293,7 +293,7 @@ public abstract class UDPClientBase implements Runnable {
 	}
 	
 	/*
-	 * ÉèÖÃĞÄÌø°ü·¢ËÍÊ±¼ä¼ä¸ô
+	 * è®¾ç½®å¿ƒè·³åŒ…å‘é€æ—¶é—´é—´éš”
 	 */
 	public void setHeartbeatInterval(int second){
 		if(second <= 0){
@@ -315,7 +315,7 @@ public abstract class UDPClientBase implements Runnable {
 			synchronized(workerT){
 				workerT.notifyAll();
 			}
-			//Î´stopÒ»Ö±´¦ÀíÏûÏ¢
+			//æœªstopä¸€ç›´å¤„ç†æ¶ˆæ¯
 			while(stoped == false){
 				try{
 					handleEvent();

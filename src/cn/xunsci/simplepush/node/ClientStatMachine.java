@@ -1,4 +1,4 @@
-package cn.xunsci.simplepush.node;
+ï»¿package cn.xunsci.simplepush.node;
 
 import java.lang.ref.WeakReference;
 import java.net.SocketAddress;
@@ -9,16 +9,16 @@ import cn.xunsci.simplepush.node.tcpconnector.MessengerTask;
 import cn.xunsci.simplepush.util.PropertyUtil;
 
 /*
- * uuidÖÕ¶Ë×´Ì¬»ú
+ * uuidç»ˆç«¯çŠ¶æ€æœº
  */
 public class ClientStatMachine {
 	
-	public static final int CMD_0x00 = 0;//ĞÄÌø°ü
-	public static final int CMD_0x01 = 1;//µÇÂ¼°ü 
-	public static final int CMD_0x10 = 16;//Í¨ÓÃĞÅÏ¢
-	public static final int CMD_0x11 = 17;//·ÖÀàĞÅÏ¢
-	public static final int CMD_0x20 = 32;//×Ô¶¨ÒåĞÅÏ¢
-	public static final int CMD_0xff = 255;//ÖØÖÃÃüÁî
+	public static final int CMD_0x00 = 0;//å¿ƒè·³åŒ…
+	public static final int CMD_0x01 = 1;//ç™»å½•åŒ… 
+	public static final int CMD_0x10 = 16;//é€šç”¨ä¿¡æ¯
+	public static final int CMD_0x11 = 17;//åˆ†ç±»ä¿¡æ¯
+	public static final int CMD_0x20 = 32;//è‡ªå®šä¹‰ä¿¡æ¯
+	public static final int CMD_0xff = 255;//é‡ç½®å‘½ä»¤
 	
 	public static int PUSH_IM_AFTER_ACTIVE_SECOND = 60;
 	
@@ -30,17 +30,17 @@ public class ClientStatMachine {
 	private static boolean createByClient = "YES".equalsIgnoreCase(PropertyUtil.getProperty("CREATE_MACHINE_BY_CLIENT"))?true:false;
 	
 	
-	private long lastTick = -1;//×îºóĞÄÌøÊ±¼ä
-	private SocketAddress lastAddr = null;//×îºóĞÄÌøµÈµÄÍøÂçµØÖ·
+	private long lastTick = -1;//æœ€åå¿ƒè·³æ—¶é—´
+	private SocketAddress lastAddr = null;//æœ€åå¿ƒè·³ç­‰çš„ç½‘ç»œåœ°å€
 	
-	private boolean hasMessage0x10 = false;//ÊÇ·ñÓĞÍ¨ÓÃĞÅÏ¢Î´½ÓÊÕ
-	private long last0x10Time = -1;//×îºóÍ¨ÓÃĞÅÏ¢Ê±¼ä
+	private boolean hasMessage0x10 = false;//æ˜¯å¦æœ‰é€šç”¨ä¿¡æ¯æœªæ¥æ”¶
+	private long last0x10Time = -1;//æœ€åé€šç”¨ä¿¡æ¯æ—¶é—´
 	
-	private long message0x11 = 0;//×îĞÂ·ÖÀàĞÅÏ¢Í¨Öª
-	private long last0x11Time = -1;//×îĞÂ·ÖÀàĞÅÏ¢Í¨ÖªÊ±¼ä
+	private long message0x11 = 0;//æœ€æ–°åˆ†ç±»ä¿¡æ¯é€šçŸ¥
+	private long last0x11Time = -1;//æœ€æ–°åˆ†ç±»ä¿¡æ¯é€šçŸ¥æ—¶é—´
 	
-	private int message0x20Len = 0;//ÊÇ·ñÓĞ×Ô¶¨ÒåĞÅÏ¢Î´½ÓÊÕ
-	private long last0x20Time = -1;//×îĞÂ×Ô¶¨ÒåĞÅÏ¢Ê±¼ä
+	private int message0x20Len = 0;//æ˜¯å¦æœ‰è‡ªå®šä¹‰ä¿¡æ¯æœªæ¥æ”¶
+	private long last0x20Time = -1;//æœ€æ–°è‡ªå®šä¹‰ä¿¡æ¯æ—¶é—´
 	private byte[] message0x20 = null;
 	
 	//private MessengerTask messengerTask = null;
@@ -111,10 +111,10 @@ public class ClientStatMachine {
 //			return null;
 //		}
 		if(m.getCmd() != ClientStatMachine.CMD_0x00){
-			return null;//·ÇĞÄÌø°ü²»²úÉúĞÂµÄ×´Ì¬»ú£¬ÒÔºó¿ÉÄÜµÇÂ¼°üÒ²»á²úÉúĞÂ×´Ì¬»ú
+			return null;//éå¿ƒè·³åŒ…ä¸äº§ç”Ÿæ–°çš„çŠ¶æ€æœºï¼Œä»¥åå¯èƒ½ç™»å½•åŒ…ä¹Ÿä¼šäº§ç”Ÿæ–°çŠ¶æ€æœº
 		}
 		ClientStatMachine csm = new ClientStatMachine();
-		//csm.lastAddr = address;²»ÄÜÉèÖÃ¸ÃÖµ£¬·ñÔò´´½¨×´Ì¬»úºóµÚÒ»´ÎonClientMessage²»»Ø·¢ĞÄÌøÁË
+		//csm.lastAddr = address;ä¸èƒ½è®¾ç½®è¯¥å€¼ï¼Œå¦åˆ™åˆ›å»ºçŠ¶æ€æœºåç¬¬ä¸€æ¬¡onClientMessageä¸å›å‘å¿ƒè·³äº†
 		csm.lastTick = System.currentTimeMillis();
 		return csm;
 	}
@@ -313,7 +313,7 @@ public class ClientStatMachine {
 	}
 	
 	/*
-	 * ·µ»Øtrue´ú±íÓĞÏûÏ¢ĞèÍ¨ÖªÓÃ»§£¬·µ»Øfalse´ú±íÎŞÏûÏ¢ĞèÍ¨Öª
+	 * è¿”å›trueä»£è¡¨æœ‰æ¶ˆæ¯éœ€é€šçŸ¥ç”¨æˆ·ï¼Œè¿”å›falseä»£è¡¨æ— æ¶ˆæ¯éœ€é€šçŸ¥
 	 */
 	public synchronized ArrayList<ServerMessage> onClientMessage(ClientMessage cm) throws Exception{
 		
@@ -325,18 +325,18 @@ public class ClientStatMachine {
 //			throw new NullPointerException("client socket address is null");
 //		}
 		ArrayList<ServerMessage> smList = new ArrayList<ServerMessage>();
-		if(cm.getCmd() == ClientStatMachine.CMD_0x00){//ĞÄÌø
+		if(cm.getCmd() == ClientStatMachine.CMD_0x00){//å¿ƒè·³
 			// nothing to do 
-		}else if(cm.getCmd() == ClientStatMachine.CMD_0x10){//È·ÈÏÍ¨ÓÃĞÅÏ¢
+		}else if(cm.getCmd() == ClientStatMachine.CMD_0x10){//ç¡®è®¤é€šç”¨ä¿¡æ¯
 			this.clear0x10Message();
 			return smList;
-		}else if(cm.getCmd() == ClientStatMachine.CMD_0x11){//È·ÈÏ·Ö×éĞÅÏ¢
+		}else if(cm.getCmd() == ClientStatMachine.CMD_0x11){//ç¡®è®¤åˆ†ç»„ä¿¡æ¯
 			this.clear0x11Message(cm.getData(), Constant.CLIENT_MESSAGE_MIN_LENGTH);
 			return smList;
-		}else if(cm.getCmd() == ClientStatMachine.CMD_0x20){//È·ÈÏ×Ô¶¨ÒåĞÅÏ¢
+		}else if(cm.getCmd() == ClientStatMachine.CMD_0x20){//ç¡®è®¤è‡ªå®šä¹‰ä¿¡æ¯
 			this.clear0x20Message();
 			return smList;
-		}else{//·Ç·¨ÃüÁî
+		}else{//éæ³•å‘½ä»¤
 			return null;
 		}
 		
@@ -355,9 +355,9 @@ public class ClientStatMachine {
 		}else if(ackHeartbeatPolicy == POLICY_NEVER){
 			needTickBack = false;
 		}else{
-			if(cm.getSocketAddress().equals(lastAddr)){//×îĞÂµØÖ·ºÍÉÏ´ÎµØÖ·Ò»ÖÂ£¬²»»ØÓ¦ĞÄÌø°ü
+			if(cm.getSocketAddress().equals(lastAddr)){//æœ€æ–°åœ°å€å’Œä¸Šæ¬¡åœ°å€ä¸€è‡´ï¼Œä¸å›åº”å¿ƒè·³åŒ…
 				needTickBack = false;
-			}else{//µØÖ·¸Ä±ä£¬»ØÓ¦ĞÄÌø°ü
+			}else{//åœ°å€æ”¹å˜ï¼Œå›åº”å¿ƒè·³åŒ…
 				needTickBack = true;
 			}
 		}

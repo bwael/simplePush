@@ -1,4 +1,4 @@
-package cn.xunsci.simplepush.node.udpconnector;
+锘縫ackage cn.xunsci.simplepush.node.udpconnector;
 
 
 import java.nio.ByteBuffer;
@@ -11,7 +11,7 @@ import cn.xunsci.simplepush.node.ServerMessage;
 import cn.xunsci.simplepush.util.PropertyUtil;
 
 /*
- * UDP 数据发送类
+ * UDP 鏁版嵁鍙戦�佺被
  */
 public class Sender implements Runnable{
 	protected DatagramChannel channel;
