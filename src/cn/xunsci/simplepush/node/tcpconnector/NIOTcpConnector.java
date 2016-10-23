@@ -1,4 +1,4 @@
-﻿package cn.xunsci.simplepush.node.tcpconnector;
+package cn.xunsci.simplepush.node.tcpconnector;
 
 import java.io.InputStream;
 import java.io.OutputStream;

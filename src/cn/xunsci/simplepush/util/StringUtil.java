@@ -1,4 +1,4 @@
-﻿package cn.xunsci.simplepush.util;
+package cn.xunsci.simplepush.util;
 
 import java.security.MessageDigest;
 import java.util.UUID;

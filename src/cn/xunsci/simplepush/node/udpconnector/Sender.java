@@ -1,4 +1,4 @@
-﻿package cn.xunsci.simplepush.node.udpconnector;
+package cn.xunsci.simplepush.node.udpconnector;
 
 
 import java.nio.ByteBuffer;

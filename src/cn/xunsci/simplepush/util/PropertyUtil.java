@@ -1,4 +1,4 @@
-﻿package cn.xunsci.simplepush.util;
+package cn.xunsci.simplepush.util;
 
 import java.util.Enumeration;
 import java.util.HashMap;

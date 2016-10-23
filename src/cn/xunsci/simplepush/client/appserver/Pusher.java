@@ -1,4 +1,4 @@
-﻿package cn.xunsci.simplepush.client.appserver;
+package cn.xunsci.simplepush.client.appserver;
 
 import java.io.InputStream;
 import java.io.OutputStream;
