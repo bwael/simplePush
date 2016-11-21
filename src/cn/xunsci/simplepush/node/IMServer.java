@@ -145,7 +145,7 @@ public class IMServer {
 		this.quit();
 		
 	}
-	//自动清理
+	//自动回收内存
 	private void autoClean(){
 		float percent = PropertyUtil.getPropertyFloat("CLEANER_AUTO_RUN_MEM_PERCENT");
 		if(percent >=1 || percent <=0){
@@ -232,15 +232,15 @@ public class IMServer {
 		sb.append("up time: ").append(runtime/(1000*3600*24)).append(" day ").append(runtime/(1000*3600)).append(" hour ").append(runtime/(1000*60)).append(" minute").append(end);
 		sb.append("messagers: ").append(this.workerList.size()).append(end);
 		sb.append("current stat machines: ").append(nodeStatus.size()).append(end);
-		sb.append("udp recieve packages: ").append(this.udpConnector.getInqueueIn()).append(end);
-		sb.append("udp recieve packages pending: ").append(this.udpConnector.getInqueueIn()-this.udpConnector.getInqueueOut()).append(end);
-		sb.append("udp send packages: ").append(this.udpConnector.getOutqueueIn()).append(end);
-		sb.append("udp send packages pending: ").append(this.udpConnector.getOutqueueIn()-this.udpConnector.getOutqueueOut()).append(end);
-		sb.append("jvm  max  mem: ").append(Runtime.getRuntime().maxMemory()).append(end);
-		sb.append("jvm total mem: ").append(Runtime.getRuntime().totalMemory()).append(end);
-		sb.append("jvm  free mem: ").append(Runtime.getRuntime().freeMemory()).append(end);
+		//sb.append("udp recieve packages: ").append(this.udpConnector.getInqueueIn()).append(end);
+		//sb.append("udp recieve packages pending: ").append(this.udpConnector.getInqueueIn()-this.udpConnector.getInqueueOut()).append(end);
+		//sb.append("udp send packages: ").append(this.udpConnector.getOutqueueIn()).append(end);
+		//sb.append("udp send packages pending: ").append(this.udpConnector.getOutqueueIn()-this.udpConnector.getOutqueueOut()).append(end);
+		//sb.append("jvm  max  mem: ").append(Runtime.getRuntime().maxMemory()).append(end);
+		//sb.append("jvm total mem: ").append(Runtime.getRuntime().totalMemory()).append(end);
+		//sb.append("jvm  free mem: ").append(Runtime.getRuntime().freeMemory()).append(end);
 		sb.append("last clean time: ").append(DateTimeUtil.formatDate(new Date(this.cleaner.getLastCleanTime()))).append(end);
-		sb.append("messengers threads:----------------------").append(end);
+		//sb.append("messengers threads:----------------------").append(end);
 		for(int i = 0; i < workerList.size(); i++){
 			Thread t = workerList.get(i).getHostThread();
 			sb.append(t.getName()+" stat: "+ t.getState().toString()).append(end);
